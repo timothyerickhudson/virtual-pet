@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRTUAL PET</title>
+    
+</head>
+<body>
+  <a href="https://uiuxconcepts.com/"><img src="https://uiuxconcepts.com/logo6P.png" style="width: 90px" /></a>
+    
+    <div style="position:relative; width:333px;">
+
+        <img id="gifContainer" style="width:333px;clip-path: inset(6px round 12px);">
+        <img id="speechBubble" style="position:absolute;top:0;left:-12px;width:333px;z-index:1;display:none" src="https://uiuxconcepts.com/sb.png">
+        <p style="position:absolute;top:12px;left:33px;width:333px;z-index:3;display:none">hellow</p>
+        <img id="exclaimationPoint" style="position:absolute;top:0;left:-12px;width:333px;z-index: 2;display:none" src="https://uiuxconcepts.com/ep.png">
+        <p style="position:absolute;top:-6px;left:12;width:333px;z-index: 3;display: none;">kittie<br/>health:1<br/>hunger:1</p>
+
+    </div>
+    <br/>
+    <button id="summon" class="button-c" onclick="functionSuper1()">PLAY</button>
+    <button id="dismiss" class="button-c" onclick="functionSuper2()">DISMISS</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p style="font-size:12px;color:gray">
+        TECH:<br>
+        JAVASCRIPT<br>
+        HTML<br>
+        CSS<br>
+        AWS<br>
+        BLENDER<br>
+        UNITY<br>
+
+    </p>
+    
+
+</body>
+
+
+
+<style>
+@font-face {
+    font-family: 'Deansgate'; /* Choose a name for your font */
+    src: url('https://uiuxconcepts.com/fonts/DeansgateCondensed-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Deansgate';
+}
+
+    button.button-c{
+     border: 2px solid #000;
+     border-radius: 6px;
+     
+     color:#000;
+     margin-right:20px;
+     font-family: 'Deansgate';
+     width:100px;
+     line-height:30px;
+     background-color: #fff;
+     position: relative;
+     
+     box-shadow:1px 1px 0, 2px 2px 0, 3px 3px 0, 4px 4px 0,5px 5px 0;
+   }
+    button.button-c:active{
+      top:5px;
+      left:5px;
+      box-shadow:0 0 0 0;
+   }
+
+   @font-face {
+  font-family: new;
+src:url("https://static1.squarespace.com/static/54a045c3e4b004237f86d5b5/t/649f09b41583db1644b92b58/1688144308794/Strange.woff")
+}
+   </style>
+
+<script>
+    let interrupt = false;
+  
+    // A helper function to delay setting the GIF src and allow it time to load
+    function setGifWithDelay(src, delay = 0) {
+      const gifContainer = document.getElementById("gifContainer");
+      const tempImg = new Image();
+  
+      // Set the new src on a temporary image to load it first
+      tempImg.src = src;
+  
+      // Wait for the image to load before changing the gif
+      tempImg.onload = function() {
+        setTimeout(() => {
+          gifContainer.src = src;  // After delay, set the actual image src
+        }, delay);
+      };
+    }
+  
+    function preloadGifs() {
+      gifs.forEach(gif => {
+        const img = new Image();
+        img.src = gif;  
+      });
+      wanderStart();
+    }
+  
+    function wanderStart() {
+      setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/standing1.gif");
+      setTimeout(() => wander("standingForward"), 1111);
+    }
+
+    function wanderResume() {
+      setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/standing1.gif");
+      setTimeout(() => wander("standingForward"), 333);
+    }
+  
+    function interrupt2(currentState) {
+      console.log("summoned");
+      if (currentState == "walkingLeft" || currentState == "standingLeft") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/leftToWalkFront1.gif");
+        setTimeout(() => setGifWithDelay("https://uiuxconcepts.com/kittieJump.gif"), 3333);
+        setTimeout(() =>
+      {
+        document.getElementById("dismiss").style.pointerEvents = '';
+      }, 3633);
+      } else if (currentState == "walkingRight" || currentState == "standingRight") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/rightToWalkFront1.gif");
+        setTimeout(() => setGifWithDelay("https://uiuxconcepts.com/kittieJump.gif"), 3333);
+        setTimeout(() =>
+      {
+        document.getElementById("dismiss").style.pointerEvents = '';
+      }, 3633);
+    } else if (currentState == "walkingBack" || currentState == "standingBack") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/backToWalkForward1.gif");
+        setTimeout(() => setGifWithDelay("https://uiuxconcepts.com/kittieJump.gif"), 3333);
+        setTimeout(() =>
+      {
+        document.getElementById("dismiss").style.pointerEvents = '';
+      }, 3633);
+    } else if (currentState == "walkingFront"|| currentState == "standingForward") {
+        setTimeout(() => setGifWithDelay("https://uiuxconcepts.com/kittieJump.gif"), 2333);
+        setTimeout(() =>
+      {
+        document.getElementById("dismiss").style.pointerEvents = '';
+      }, 2633);
+    } 
+    }
+  
+    function wander(currentState) {
+      if (interrupt) {
+        interrupt2(currentState);
+        return;
+      }
+  
+      let currentSecond = Math.floor(Math.random() * 2) + 1;
+  
+      if (currentState == "standingForward") {
+        if (currentSecond % 2 === 0) {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/walkRight1.gif");
+          setTimeout(() => wander("walkingRight"), 3333);
+        } else {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/frontToWalkLeft2.gif");
+          setTimeout(() => wander("walkingLeft"), 3333);
+        }
+      } else if (currentState == "walkingRight") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/faceRight1.gif");
+        setTimeout(() => wander("standingRight"), Math.random() * 1000 + 2000);
+      } else if (currentState == "walkingLeft") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/faceLeft1.gif");
+        setTimeout(() => wander("standingLeft"), Math.random() * 1000 + 2000);
+      } else if (currentState == "standingRight") {
+        if (currentSecond % 2 === 0) {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/rightToWalkLeft1.gif");
+          setTimeout(() => wander("walkingLeft"), 3333);
+        } else {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/rightToWalkBack.gif");
+          setTimeout(() => wander("walkingBack"), 3333);
+        }
+      } else if (currentState == "standingLeft") {
+        if (currentSecond % 2 === 0) {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/leftToWalkFront1.gif");
+          setTimeout(() => wander("walkingFront"), 3333);
+        } else {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/leftToWalkBack1.gif");
+          setTimeout(() => wander("walkingBack"), 3333);
+        }
+      } else if (currentState == "walkingBack") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/faceBack1.gif");
+        setTimeout(() => wander("standingBack"), Math.random() * 1000 + 2000);
+      } else if (currentState == "standingBack") {
+        if (currentSecond % 2 === 0) {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/backToWalkForward1.gif");
+          setTimeout(() => wander("walkingFront"), 3333);
+        } else {
+          setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/backToWalkLeft.gif");
+          setTimeout(() => wander("walkingLeft"), 3333);
+        }
+      } else if (currentState == "walkingFront") {
+        setGifWithDelay("https://uiuxconcepts.com/kittiewalkgif/standing1.gif");
+        setTimeout(() => wander("standingForward"), 3333);
+      }
+    }
+  
+    const gifs = [
+      "https://uiuxconcepts.com/kittiewalkgif/standing1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/backToWalkForward1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/leftToWalkFront1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/faceBack1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/faceLeft1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/faceRight1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/rightToWalkBack.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/walkForward1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/walkRight1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/frontToWalkLeft2.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/rightToWalkLeft1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/leftToWalkBack1.gif",
+      "https://uiuxconcepts.com/kittiewalkgif/backToWalkLeft.gif"
+    ];
+  
+    // Call preloadGifs when the page loads
+    window.onload = preloadGifs;
+  
+    function functionSuper1() {
+        if (interrupt==false){
+      interrupt = true;
+      document.getElementById("exclaimationPoint").style.display = "block";
+      document.getElementById("summon").style.top = '5px';
+      document.getElementById("summon").style.left = '5px';
+      document.getElementById("summon").style.boxShadow = '0 0 0 0';
+      document.getElementById("dismiss").style.pointerEvents = 'none';
+      
+      setTimeout(() => {
+        document.getElementById("exclaimationPoint").style.display = "none";
+      }, 3333);
+    }
+    }
+  
+    function functionSuper2() {
+      if (interrupt) {
+        interrupt = false;
+        document.getElementById("summon").style.top = '0';
+      document.getElementById("summon").style.left = '0';
+      document.getElementById("summon").style.boxShadow = '1px 1px 0, 2px 2px 0, 3px 3px 0, 4px 4px 0,5px 5px 0';
+        wanderResume();
+      }
+    }
+  </script>
+  
+
+</html>
